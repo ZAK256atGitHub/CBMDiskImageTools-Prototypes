@@ -20,4 +20,4 @@ CBM Disk Image Tools Prototypes is licensed under the [MIT license](LICENSE).
 
 # Benutzerdokumentation
 
-![Alt Text]("/images/Prototype WPF ListView Binding 001.png")
+![Alt Text](/images/"Prototype WPF ListView Binding 001.png")
