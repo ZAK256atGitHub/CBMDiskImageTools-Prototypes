@@ -58,7 +58,7 @@ namespace Prototype_WPF_ListView_Binding
             dt.Columns.Add("Size");
             dt.Columns.Add("Name");
             dt.Columns.Add("Type");
-            dt.Rows.Add("0", "", " DEL ");
+            dt.Rows.Add("0", "", " DEL "); // die Zeichen des Names sind UNICODE Zeichen zwischen E000 und E0FF 
             dt.Rows.Add("1", "", " PRG ");
             dt.Rows.Add("0", "", " DEL ");
             dt.Rows.Add("0", "", " DEL ");
