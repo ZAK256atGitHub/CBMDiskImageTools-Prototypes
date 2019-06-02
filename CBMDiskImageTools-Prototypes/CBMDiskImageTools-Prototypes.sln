@@ -12,6 +12,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{1C93A1EA-F63B-4D42-AD3E-73C990C96206}"
 	ProjectSection(SolutionItems) = preProject
+		..\images\Prototype_Styles_C64_True_Type_Fonts_001.png = ..\images\Prototype_Styles_C64_True_Type_Fonts_001.png
 		..\images\Prototype_WPF_ListView_Binding_001.png = ..\images\Prototype_WPF_ListView_Binding_001.png
 	EndProjectSection
 EndProject
