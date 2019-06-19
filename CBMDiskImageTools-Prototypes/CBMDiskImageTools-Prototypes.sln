@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "images", "images", "{1C93A1
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype Styles C64 True Type Fonts", "Prototype Styles C64 True Type Fonts\Prototype Styles C64 True Type Fonts.csproj", "{8EEB061C-37AC-453B-9AC3-E026D51B5BEA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Prototype WPF PETSCII Textbox Control", "Prototype WPF PETSCII Textbox Control\Prototype WPF PETSCII Textbox Control.csproj", "{DDE4ACDB-BC7D-41F0-A393-5ACAEE85F4DD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -32,6 +34,10 @@ Global
 		{8EEB061C-37AC-453B-9AC3-E026D51B5BEA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8EEB061C-37AC-453B-9AC3-E026D51B5BEA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8EEB061C-37AC-453B-9AC3-E026D51B5BEA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{DDE4ACDB-BC7D-41F0-A393-5ACAEE85F4DD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{DDE4ACDB-BC7D-41F0-A393-5ACAEE85F4DD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{DDE4ACDB-BC7D-41F0-A393-5ACAEE85F4DD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{DDE4ACDB-BC7D-41F0-A393-5ACAEE85F4DD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
