@@ -3,4 +3,4 @@ Das Projekt verwendet die Schriftart "C64 Pro Mono" ( https://style64.org/c64-tr
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_001.png)
 
 ### Testeingabe
-![](/images/Prototype_WPF_PETSCII_Textbox_Control_002.png)
+![](/images/Prototype_WPF_PETSCII_Textbox_Control_002.gif)
