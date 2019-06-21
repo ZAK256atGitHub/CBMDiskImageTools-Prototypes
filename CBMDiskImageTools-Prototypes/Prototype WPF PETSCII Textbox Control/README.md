@@ -18,3 +18,7 @@ Das Projekt verwendet die Schriftart "C64 Pro Mono" ( https://style64.org/c64-tr
 | @[]                   | 3                       |
 | Leertsate             | 1 (fehlt im GIF-Video)  |
 
+
+### Umschaltung zwischen Zeichensatz 1 und Zeichensatz 2
+
+![](/images/Prototype_WPF_PETSCII_Textbox_Control_004.gif)
