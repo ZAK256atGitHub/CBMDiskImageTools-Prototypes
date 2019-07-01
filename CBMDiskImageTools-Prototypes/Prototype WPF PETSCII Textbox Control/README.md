@@ -27,6 +27,7 @@ Die Darstellung des PETCIIs erfolgt über die True Type Schriftart "C64 Pro Mono
 
 ## Was waren die Probleme bei der Entwicklung des Projektes?
 Das WPF TextBox Steuerelemente verfügt über eine Vielzahl von integrierten Funktionen, welche alle betrachtet werden müssen.
+
 Es war auch schwierig den geeigneten Weg zu finden, wie die Zuordnung einer Taste (bzw. dessen Zeichen) zu einem PETSCII Code erfolgen soll.
 Die Position einer Taste auf einer Tastatur kann nur schwierig ermittelt werden.
 Dazu müsste das Programm das Layout der benutzten Tastatur genau kennen.
@@ -35,6 +36,7 @@ Beim VICE Emulator gibt es dafür spezielle Tastatur Zuordnungs-Dateien (keyboar
 Deshalb wurde in diesem Projekt darauf verzichtet, über die Position von Tasten eine Ermittlung des entsprechenden PETCII Codes durchzuführen.
 Dieses Projekt benutzt nur das Zeichen, welches eine Taste liefert für die Ermittlung des entsprechenden PETCII Codes.
 Dabei ist die Position der Taste nicht von Bedeutung.
+
 Die Ermittlung von reinen Tastatur Scan Codes ist mit C# schwierig.
 Die reinen Tastatur Scan Codes werden wohl schon vom Tastatur Treiber (Keyboard.dll) in virtuelle Tastatur Codes umgewandelt.
 Diese virtuelle Tastatur Codes werden dann (wohl durch die TranslateMessage-Funktion) in Zeichen Codes umgewandelt.
@@ -48,6 +50,7 @@ In den KeyEventArgs entspricht der Wert **Key** dem virtuellen Tastatur Code.
 Leider ist es wohl sehr schwierig das entsprechende Zeichen aus einem virtuellen Tastatur Code zu bestimmen.
 Es könnte zwar die Windows Funktion ToUnicodeEx() (über die Runtime InteropServices) verwendet werden, diese bereitet aber auch wieder nur Probleme.
 Der Aufruf der Funktion ToUnicodeEx() zerstört die Information der **Tottasten** ( https://de.wikipedia.org/wiki/Tottaste ).
+
 Ja, was sind nun schon wieder **Tottasten**?
 Das sind die Tasten, welche nach dem Drücken keinen Buchstabenvorschub erzeugen, sondern eine Art **Wartemodus** aktivieren.
 Erst ein weiterer Tastendruck erzeugt dann ein kombiniertes Zeichen (Grundzeichen und Diakritika – wie è, ĉ, ñ, ś oder ů).
@@ -55,18 +58,19 @@ Auf normalen deutschen Tastaturen sind das die Zirkumflex-Taste **^**  und die A
 Wegen den beschrieben Problemen, wurde in diesem Projekt auf die Verwendung der Windows Funktion ToUnicodeEx() verzichtet.
 Das bedeutet dann aber, das die eingegebenen Zeichen über das 'PreviewTextInput** Ereignis und die **Leertaste** über das **PreviewKeyDown** Ereignis behandelt werden muss.
 Leider müssen so beide Ereignisse benutzt werden, ich hätte gern auf eines der beiden Ereignisse verzichtet.
+
 Ein Test der Anwendung mit der Windows 10 Bildschirmtastatur zeigte, das noch einige wenige Emojis in das WPF TextBox Steuerelement eingeben werden konnte.
 So konnte das Rote Herz Emoji ❤ eingeben werden. Zur Anzeige kam wohl das Unicode-Zeichen U+2764 (HEAVY BLACK HEART).
 Dabei habe ich festgestellt das es bei Windows 10 auch dein Emoji-Panel (aufrufbar über die Tastenkombination **Windows** + **.**) zur Eingabe von Emojis gibt.
 Einige der eingegebenen Emoji werden wohl bei der Eingabe in 16 Bit Unicode-Zeichen umgewandelt.
 So wohl auch das Rote Herz Emoji ❤, welche zum Unicode-Zeichen U+2764 umgewandelt wurde.
+
 Andere Emojis werden als 32 Bit Unicode-Zeichen abgelegt (UTF-32).
 Ein C# String arbeitet aber nur mit einer 16 Bit Unicode Darstellung (UTF-16).
 Unicode-Zeichen außerhalb der Basic multilingual plane (non-BMP U+10000 bis U+10FFFF) können durch zwei 16-Bit-Wörter (engl. code units) dargestellt, werden.
 Dazu werden sogenannte **Surrogate Pairs** verwendet ( https://de.wikipedia.org/wiki/UTF-16#Kodierung ).
 Um die Eingabe von unerwünschten Emojis zu verhindern wurde die Eigenschaft **IsInputMethodEnabled** des WPF TextBox Steuerelementes auf **false** gesetzt.
 Dadurch wird wohl auch die Eingabemethode über Alt-Taste und Ziffern am Ziffernblock deaktiviert ( https://de.wikipedia.org/wiki/Eingabemethode#Tastenkombinationen_bzw._-k%C3%BCrzel ).
-
 
 ### Testeingabe
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_002.gif)
