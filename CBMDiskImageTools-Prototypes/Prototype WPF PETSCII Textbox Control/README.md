@@ -70,6 +70,7 @@ Ein C# String arbeitet aber nur mit einer 16 Bit Unicode Darstellung (UTF-16).
 Unicode-Zeichen außerhalb der Basic multilingual plane (non-BMP U+10000 bis U+10FFFF) können durch zwei 16-Bit-Wörter (engl. code units) dargestellt, werden.
 Dazu werden sogenannte **Surrogate Pairs** verwendet ( https://de.wikipedia.org/wiki/UTF-16#Kodierung ).
 Um die Eingabe von unerwünschten Emojis zu verhindern wurde die Eigenschaft **IsInputMethodEnabled** des WPF TextBox Steuerelementes auf **false** gesetzt.
+Das setzten der Eigenschaft SetIsInputMethodEnabled musste dabei mittels Programmcode erfolgen **InputMethod.SetIsInputMethodEnabled(tb_Input, false);**, da diese Eigenschaft wohl im xaml nicht zur Verfügung steht.
 Dadurch wird wohl auch die Eingabemethode über Alt-Taste und Ziffern am Ziffernblock deaktiviert ( https://de.wikipedia.org/wiki/Eingabemethode#Tastenkombinationen_bzw._-k%C3%BCrzel ).
 
 ### Testeingabe
