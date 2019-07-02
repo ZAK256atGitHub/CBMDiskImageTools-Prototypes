@@ -1,6 +1,5 @@
 ﻿## Prototype WPF PETSCII Textbox Control
 Das Projekt verwendet die Schriftart "C64 Pro Mono" ( https://style64.org/c64-truetype ), welche installiert sein muss.
-
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_001.png)
 
 ## Was ist das Ziel dieses Projektes?
@@ -27,9 +26,6 @@ Die Darstellung des PETCIIs erfolgt über die True Type Schriftart "C64 Pro Mono
 - das WPF TextBox Steuerelemente besitzt einen Tooltip, welcher die Unicode- (E0XX bzw. E1XX) und die PETSCII-Werte des eingegebenen Textes hexadezimal anzeigt
 
 ## Was waren die Probleme bei der Entwicklung des Projektes?
-Um die Schriftart "C64 Pro Mono" verwenden zu können, muss der Ausgabetext Unicodewerte im Bereich E000 bis E0FF (für Zeichensatz 1) bzw. im Bereich E100 bis E1FF (für Zeichensatz 2) beinhalten.
-Das bedeutet, alle Eingaben in das verwendete WPF TextBox Steuerelement müssen während der Eingabe angepasst werden.
-
 Das WPF TextBox Steuerelemente verfügt über eine Vielzahl von integrierten Funktionen, welche alle betrachtet werden müssen.
 
 Es war auch schwierig den geeigneten Weg zu finden, wie die Zuordnung einer Taste (bzw. dessen Zeichen) zu einem PETSCII Code erfolgen soll.
@@ -73,31 +69,16 @@ Andere Emojis werden als 32 Bit Unicode-Zeichen abgelegt (UTF-32).
 Ein C# String arbeitet aber nur mit einer 16 Bit Unicode Darstellung (UTF-16).
 Unicode-Zeichen außerhalb der Basic multilingual plane (non-BMP U+10000 bis U+10FFFF) können durch zwei 16-Bit-Wörter (engl. code units) dargestellt, werden.
 Dazu werden sogenannte **Surrogate Pairs** verwendet ( https://de.wikipedia.org/wiki/UTF-16#Kodierung ).
-Dies war mir bis jetzt nicht bekannt, ich bin immer davon ausgegangen, das in C# eine Zeichen immer genau 2 Byte entspricht.
 Um die Eingabe von unerwünschten Emojis zu verhindern wurde die Eigenschaft **IsInputMethodEnabled** des WPF TextBox Steuerelementes auf **false** gesetzt.
 Das setzten der Eigenschaft SetIsInputMethodEnabled musste dabei mittels Programmcode erfolgen **InputMethod.SetIsInputMethodEnabled(tb_Input, false);**, da diese Eigenschaft wohl im xaml nicht zur Verfügung steht.
 Dadurch wird wohl auch die Eingabemethode über Alt-Taste und Ziffern am Ziffernblock deaktiviert ( https://de.wikipedia.org/wiki/Eingabemethode#Tastenkombinationen_bzw._-k%C3%BCrzel ).
 
-Für das Kopieren und Einfügen bzw. das Ziehen und Ablegen von Zeichen aus bzw. in das WPF TextBox Steuerelement musste eine Einstellungsmöglichkeit gefunden werden, mit welcher der Benutzer das Verhalten dieser Aktionen beeinflussen kann.
-So sind die Optionen **Einfügen/Ablegen aus einer unbekannten Quelle** und **Kopieren/Ziehen zu einem unbekannten Ziel** enstanden.
-Diese Optionen kann der Benutzer über Optionsschaltflächen ( https://de.wikipedia.org/wiki/Radiobutton ) auswählen.
-
-Beim Einfügen bzw. beim Ablegen von Zeichen aus einer unbekannten Quelle, kann es passieren, dass nicht alle Zeichen übernommen werden.
-Um dem Benutzer anzuzeigen welche Zeichen nicht übernommen wurden, öffnet sich in diesem Fall ein PopUp ( https://de.wikipedia.org/wiki/Pop-up ).
-In diesem PopUp wird der gesamte einzufügende Text angezeigt.
-Alle Zeichen, welche nicht übernommen wurden, sind bei dieser Anzeige durchgestrichen dargestellt.
-
-Schwierig bei dem PopUp war es, eine geeignete Programmstelle für das Schließen des PopUp Fensters zu finden.
-So erfolgt im PreviewKeyDown Ereignis, das Schließen des PopUp Fensters und die Eigenschaft **StaysOpen** wurde auf **false** gesetzt.
-Durch das setzten der Eigenschaft **StaysOpen** auf **false** wird das PopUp Fenster beim nächsten Maustastendruck geschlossen.
-
 ### Testeingabe
-
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_002.gif)
 
 ### Testeingabe von 87 Zeichen
-Die Tastatureingabe lässt die Eingabe von genau 87 Zeichen zu.
-Das sind genau die 87 Zeichen bei denen das Zeichen des modernen ASCIIs mit dem Zeichen des PETCIIs (in Zeichensatz 2) übereinstimmt.
+
+![](/images/Prototype_WPF_PETSCII_Textbox_Control_003.gif)
 
 | Zeichen               | Zeichenanzahl           |
 |:----------------------|:-----------------------:|
@@ -107,33 +88,13 @@ Das sind genau die 87 Zeichen bei denen das Zeichen des modernen ASCIIs mit dem 
 | <yxcvbnm,.->YXCVBNM;: | 21                      |
 | @[]                   | 3                       |
 | Leertaste             | 1 (fehlt im GIF-Video)  |
-| **Summe:**            | **87**                  |                      
 
-Auf der C64 Tastatur gibt es, abgesehen von den unzähligen Symbolen, dann noch 4 Zeichen, welche im modernem ASCII nicht vorhanden sind.
-
-| Zeichen      | Name (englisch)         | Name                          |
-|:------------:|:-----------------------:|:-----------------------------:|
-| ←            | Leftwards Arrow         | Pfeil nach links              |
-| ↑            | Upwards Arrow           | Pfeil nach oben               |
-| £            | Pound Sign              | Pfund-Zeichen                 |
-| Π            | Greek Capital Letter Pi | Griechischer Großbuchstabe Pi |
-
-Diese 4 Zeichen können somit nicht über eine Tastatur eingegeben werden.
-
-![](/images/Prototype_WPF_PETSCII_Textbox_Control_003.gif)
 
 ### Umschaltung zwischen Zeichensatz 1 und Zeichensatz 2
-Bei der Umschaltung zwischen Zeichensatz 1 und Zeichensatz 2 werden die Unicodewerte des Textes des WPF TextBox Steuerelements geändert.
-Dabei bleibt das 2 Byte welches dem PETCII Code entspricht erhalten.
-Das erste Byte wird entsprechend dem Zeichensatz geändert.
-Es wird also E0XX zu E1XX bei einem Wechsel von Zeichensatz 1 zu Zeichensatz 2 geändert.
-Bei einem Wechsel von Zeichensatz 2 zu Zeichensatz 1 wird E1XX zu E0XX geändert.
 
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_004.gif)
 
-### Tooltip des WPF TextBox Steuerelements
-Das WPF TextBox Steuerelemente besitzt einen Tooltip, welcher die Unicode- (E0XX bzw. E1XX) und die PETSCII-Werte des eingegebenen Textes hexadezimal anzeigt.
+### Tooltips
 
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_005.png)
-
 ![](/images/Prototype_WPF_PETSCII_Textbox_Control_006.png)
